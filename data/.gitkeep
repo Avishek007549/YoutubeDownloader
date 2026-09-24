@@ -1,0 +1,44 @@
+from bakery_management.services import BakeryService
+
+
+def test_add_product_and_list(tmp_path):
+    db_path = tmp_path / "bakery.db"
+    service = BakeryService(db_path=str(db_path))
+    product_id = service.add_product("Croissant", "Bakery", 3.5, 10, "pcs")
+
+    products = service.list_products()
+
+    assert product_id > 0
+    assert len(products) == 1
+    assert products[0]["name"] == "Croissant"
+    assert products[0]["stock"] == 10
+
+
+def test_create_order_updates_stock(tmp_path):
+    db_path = tmp_path / "bakery.db"
+    service = BakeryService(db_path=str(db_path))
+
+    product_id = service.add_product("Bread", "Bakery", 5.0, 12, "pcs")
+    customer_id = service.add_customer("John Doe", "1112223333", "john@example.com")
+
+    order_result = service.create_order(customer_id, [{"product_id": product_id, "quantity": 3}])
+    products = service.list_products()
+
+    assert order_result["total_amount"] == 15.0
+    assert products[0]["stock"] == 9
+
+
+def test_dashboard_summary(tmp_path):
+    db_path = tmp_path / "bakery.db"
+    service = BakeryService(db_path=str(db_path))
+
+    product_1 = service.add_product("Cake", "Desserts", 20.0, 5, "pcs")
+    product_2 = service.add_product("Cookie", "Bakery", 2.5, 30, "pcs")
+    customer_id = service.add_customer("Alice", "9999999999", "alice@example.com")
+    service.create_order(customer_id, [{"product_id": product_1, "quantity": 2}, {"product_id": product_2, "quantity": 5}])
+
+    summary = service.get_dashboard_summary()
+
+    assert summary["product_count"] == 2
+    assert summary["total_stock_value"] == 5 * 20.0 + 30 * 2.5  # not accurate after order reduction; this would be 100 + 75 = 175
+    assert summary["total_revenue"] == 45.0

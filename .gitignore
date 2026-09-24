@@ -2,10 +2,12 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.venv/
 venv/
 .env
 .DS_Store
-build/
-dist/
-*.spec
-downloads/
+.pytest_cache/
+coverage.xml
+htmlcov/
+*.sqlite3
+*.db

@@ -1,63 +1,32 @@
-# Bakery Management System
+# YouTube Downloader
 
-A full-stack-style bakery management project built with Python and SQLite.
+A focused desktop YouTube downloader built with Python, Tkinter, and pytube.
 
 ## Features
-- Manage products and inventory
-- Track customers
-- Create and view sales orders
-- Monitor low-stock items
-- Summary dashboard for revenue and stock value
-- Simple command-line interface
 
-## Project structure
-
-```text
-Bakery-management-system/
-├── app.py
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── bakery_management/
-│   ├── __init__.py
-│   ├── __main__.py
-│   ├── config.py
-│   ├── database.py
-│   ├── models.py
-│   ├── services.py
-│   └── cli.py
-├── data/
-│   └── bakery.db
-└── tests/
-    └── test_bakery.py
-```
+- Download YouTube videos as MP4
+- Select best, 1080p, 720p, 480p, or 360p quality
+- Download the best available audio stream
+- Choose a destination folder
+- Background downloads keep the interface responsive
+- Accepts only `youtube.com` and `youtu.be` URLs
 
 ## Setup
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
-## Run the app
+## Run
 
 ```bash
 python app.py
 ```
 
-## Example commands
+Enter a YouTube video URL, select the output folder and quality, then click **Download**.
 
-```bash
-python app.py products add --name "Croissant" --category "Bakery" --price 3.50 --stock 25 --unit pcs
-python app.py products list
-python app.py customers add --name "Alice" --phone "1234567890" --email "alice@example.com"
-python app.py orders add --customer-id 1 --item 1:2 --item 2:1
-python app.py orders list
-python app.py summary
-```
+## Legal notice
 
-## Notes
-- The app uses SQLite for data storage.
-- Database is created automatically in `data/bakery.db`.
-- You can expand this project with a web UI or desktop interface later.
+Only download content you have permission to download and follow YouTube's Terms of Service and applicable copyright laws.

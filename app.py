@@ -1,5 +1,5 @@
-from bakery_management.cli import main
+from utils import DownloadApp
 
 
 if __name__ == "__main__":
-    main()
+    DownloadApp().run()
